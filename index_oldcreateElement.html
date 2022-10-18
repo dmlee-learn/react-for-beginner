@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script>
+        const root = document.querySelector('#root');
+
+        //1 tag, 2 pros(properties) React need propety the key, 3 contents
+        const h3 = React.createElement('h3', {key:'good-span', id:'good-span', style:{color:'red'}}, 'hello i am span');
+        const btn = React.createElement('button', {key:'good-button', onClick:() => console.log('btn click'), style:{backgroundColor:'tomato'}}, 'click me');
+        const container = React.createElement('div', {key:'good-div'}, [h3, btn]);
+        //drawin
+        ReactDOM.render(container, root);
+    </script>
+</html>
