@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <base href="/" />
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.querySelector('#root');
+        /*
+        const Title = () => (
+            <h3 key="title" id="title" onMouseEnter={() => console.log('onMouseEnter')}>
+                hello i am title
+            </h3>
+        );
+        const Btn = () => (
+            <button key='good-button' onClick={() => console.log('btn click')} style={{backgroundColor:'tomato'}}>
+                click me
+            </button>
+        );
+
+        const Container = () => (<div>
+            <Title/>
+            <Btn/>
+            </div>            
+        );
+        */
+
+        
+        function countUp() {
+            counter += 1;
+            render();
+        }
+        function App() {
+            let [counter, setCounter] = React.useState(0);
+            const onClick = () => {
+                //setCounter(counter + 1);
+                setCounter((current) => current + 1);
+                console.log(counter);
+            };
+            return (<div>
+                <h3 key="title" id="title" onMouseEnter={() => console.log('onMouseEnter')}>
+                    hello i am title count : {counter}
+                </h3>
+                <button key='good-button' onClick={onClick} style={{backgroundColor:'tomato'}}>
+                    click me11
+                </button>
+                </div>
+            );
+        }
+
+        
+        ReactDOM.render(<App />, root);
+        
+    </script>
+</html>
