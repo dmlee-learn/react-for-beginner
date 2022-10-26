@@ -15,10 +15,13 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.querySelector('#root');
+
+        //tag는 대문자로 선언 필요
         function App() {
             let [second, setSecond] = React.useState(0);
             let [minute, setMinute] = React.useState(0);
             let [hours, setHours] = React.useState(0);
+            let [fliped, setFliped] = React.useState(false);
             
             function onSecondChange(event) {
                 const secondValue = parseInt(event.target.value);
@@ -38,24 +41,30 @@
                 setMinute(hoursValue * 60);
                 setSecond(hoursValue * 60 * 60);
             }
-            return (<div>
-                <h1 className='h1' key="title" id="title">
-                    super converter
-                </h1>
-                <div id="timeBase">
-                    <label htmlFor="second">second</label>
-                    <input type="number" placeholder="second" value={second} onChange={onSecondChange} /><br/>
-                    <label htmlFor="minute">minute</label>
-                    <input type="number" placeholder="minute" value={minute} onChange={onMinuteChange} /><br/>
-                    <label htmlFor="hours">hours</label>
-                    <input type="number" placeholder="hours" value={hours} onChange={onHoursChange} /><br/>
-                </div>
+
+            function onFlip() {
+                setFliped(!fliped);
+                console.log(fliped)
+            }
+            //for => htmlFor, class => className
+            return (
+                <div>
+                    <h1 className='h1' key="title" id="title">
+                        super converter
+                    </h1>
+                    <div id="timeBase">
+                        <label htmlFor="second">second</label>
+                        <input type="number" placeholder="second" value={second} onChange={onSecondChange} /><br/>
+                        <label htmlFor="minute">minute</label>
+                        <input type="number" placeholder="minute" value={minute} onChange={onMinuteChange} /><br/>
+                        <label htmlFor="hours">hours</label>
+                        <input type="number" placeholder="hours" value={hours} onChange={onHoursChange} /><br/>
+                    </div>
+                    <button id="flip" onClick={onFlip}>flip{fliped}</button>
                 </div>
             );
-        }
-
-        
-        ReactDOM.render(<App />, root);
-        
+        }        
+        //ReactDOM.render(<App />, root);
+        ReactDOM.createRoot(root).render(<App />);      
     </script>
 </html>
