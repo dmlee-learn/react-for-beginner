@@ -17,94 +17,34 @@
         const root = document.querySelector('#root');
 
         //tag는 대문자로 선언 필요
-        function MinutesToHours() {
-            let [among, setAmong] = React.useState(0);
-            let [flipped, setFlipped] = React.useState(false);
-            
-            function onChange(event) {
-                setAmong(event.target.value);
-            }
-
-            function onFlip() {
-                onReset()
-                setFlipped(!flipped);
-            }
-
-            function onReset() {
-                setAmong(0);
-            }
-
-            //for => htmlFor, class => className
+        
+        //function Btn(props) {
+        function Btn({text, onClick}) {
+            console.log(text, "was render");
             return (
-                <div>
-                    <h3>MinutesToHours</h3>
-                    <div id="timeBase">
-                        <label htmlFor="minute">minute</label>
-                        <input type="number" placeholder="minute" value={flipped ? among * 60 : among } onChange={onChange} disabled={flipped}/><br/>
-                        <label htmlFor="hours">hours</label>
-                        <input type="number" placeholder="hours" value={flipped ? among : Math.floor(among / 60)} onChange={onChange} disabled={!flipped} /><br/>
-                    </div>
-                    <button id="reset" onClick={onReset}>reset</button>
-                    <button id="flip" onClick={onFlip}>flip</button>
-                </div>
+                <button 
+                    onClick={onClick}
+                    style={{
+                    backgroundColor:'tomato'
+                    , color:'white'
+                    , padding:'10xp 20xp'
+                    , borderRadius:10
+                    , border:0
+                
+                }}>{text}</button>
             );
         }
-
-        function KmToMiles() {
-            let [among, setAmong] = React.useState(0);
-            let [flipped, setFlipped] = React.useState(false);
-            let converterValue = 1.609344;
-            
-            function onChange(event) {
-                setAmong(event.target.value);
-            }
-
-            function onFlip() {
-                onFlip();
-                setFlipped(!flipped);
-            }
-
-            function onReset() {
-                setAmong(0);
-            }
-
-            //for => htmlFor, class => className
-            return (
-                <div>
-                    <h3>KmToMiles</h3>
-                    <div id="timeBase">
-                        <label htmlFor="minute">Km</label>
-                        <input type="number" placeholder="minute" value={flipped ? among * converterValue : among } onChange={onChange} disabled={flipped}/><br/>
-                        <label htmlFor="hours">Miles</label>
-                        <input type="number" placeholder="hours" value={flipped ? among : (among / converterValue).toFixed(6)} onChange={onChange} disabled={!flipped} /><br/>
-                    </div>
-                    <button id="reset" onClick={onReset}>reset</button>
-                    <button id="flip" onClick={onFlip}>flip</button>
-                </div>
-            );
-        }
-
+        const MemorizedBtn = React.memo(Btn); //메모라이즈는 함수 밖에서 작업 필요
         function App() {
-            let [index, setIndex] = React.useState("0");
-
-            const onSelect = (event) => {
-                setIndex(event.target.value);
-            };
+            
+            const [text, setText] = React.useState("save");
+            const onClick = () => setText('Close');
+            
 
             return (
                 <div>
-                    <h1 className='h1' key="title" id="title">
-                        super converter
-                    </h1>
-                    <select name="selector" id="selector" value={index} onChange={onSelect}>
-                        <option value="0">Select your unit</option>
-                        <option value="1">Minutes & Hours</option>
-                        <option value="2">Km & Miles</option> 
-                    </select>
-                    <hr />
-                    {index === "0" ? "Select your unit" : null}
-                    {index === "1" ? <MinutesToHours /> : null}
-                    {index === "2" ? <KmToMiles /> : null}
+                    <MemorizedBtn text={text} onClick={onClick}/>
+                    <MemorizedBtn text="close" />
                 </div>                
             );
         }
