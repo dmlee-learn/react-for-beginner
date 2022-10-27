@@ -26,6 +26,7 @@
             }
 
             function onFlip() {
+                onReset()
                 setFlipped(!flipped);
             }
 
@@ -44,7 +45,7 @@
                         <input type="number" placeholder="hours" value={flipped ? among : Math.floor(among / 60)} onChange={onChange} disabled={!flipped} /><br/>
                     </div>
                     <button id="reset" onClick={onReset}>reset</button>
-                    <button id="flip" onClick={() => setFlipped(!flipped)}>flip</button>
+                    <button id="flip" onClick={onFlip}>flip</button>
                 </div>
             );
         }
@@ -52,12 +53,14 @@
         function KmToMiles() {
             let [among, setAmong] = React.useState(0);
             let [flipped, setFlipped] = React.useState(false);
+            let converterValue = 1.609344;
             
             function onChange(event) {
                 setAmong(event.target.value);
             }
 
             function onFlip() {
+                onFlip();
                 setFlipped(!flipped);
             }
 
@@ -70,13 +73,13 @@
                 <div>
                     <h3>KmToMiles</h3>
                     <div id="timeBase">
-                        <label htmlFor="minute">minute</label>
-                        <input type="number" placeholder="minute" value={flipped ? among * 60 : among } onChange={onChange} disabled={flipped}/><br/>
-                        <label htmlFor="hours">hours</label>
-                        <input type="number" placeholder="hours" value={flipped ? among : Math.floor(among / 60)} onChange={onChange} disabled={!flipped} /><br/>
+                        <label htmlFor="minute">Km</label>
+                        <input type="number" placeholder="minute" value={flipped ? among * converterValue : among } onChange={onChange} disabled={flipped}/><br/>
+                        <label htmlFor="hours">Miles</label>
+                        <input type="number" placeholder="hours" value={flipped ? among : (among / converterValue).toFixed(6)} onChange={onChange} disabled={!flipped} /><br/>
                     </div>
                     <button id="reset" onClick={onReset}>reset</button>
-                    <button id="flip" onClick={() => setFlipped(!flipped)}>flip</button>
+                    <button id="flip" onClick={onFlip}>flip</button>
                 </div>
             );
         }
@@ -94,14 +97,17 @@
                         super converter
                     </h1>
                     <select name="selector" id="selector" value={index} onChange={onSelect}>
-                        <option value="0">Minutes & Hours</option>
-                        <option value="1">Km & Miles</option> 
+                        <option value="0">Select your unit</option>
+                        <option value="1">Minutes & Hours</option>
+                        <option value="2">Km & Miles</option> 
                     </select>
-                    {index === "0" ? <MinutesToHours /> : null}
-                    {index === "1" ? <KmToMiles /> : null}
+                    <hr />
+                    {index === "0" ? "Select your unit" : null}
+                    {index === "1" ? <MinutesToHours /> : null}
+                    {index === "2" ? <KmToMiles /> : null}
                 </div>                
             );
         }
-        ReactDOM.createRoot(root).render(<App />);      
+        ReactDOM.createRoot(root).render(<App />);
     </script>
 </html>
