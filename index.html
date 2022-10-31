@@ -12,6 +12,7 @@
 </body>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.querySelector('#root');
@@ -19,7 +20,7 @@
         //tag는 대문자로 선언 필요
         
         //function Btn(props) {
-        function Btn({text, onClick}) {
+        function Btn({text, fontSize = 12,onClick}) {
             console.log(text, "was render");
             return (
                 <button 
@@ -30,6 +31,7 @@
                     , padding:'10xp 20xp'
                     , borderRadius:10
                     , border:0
+                    , fontSize
                 
                 }}>{text}</button>
             );
@@ -40,10 +42,14 @@
             const [text, setText] = React.useState("save");
             const onClick = () => setText('Close');
             
+            MemorizedBtn.propTypes = {
+                text: PropTypes.string.isRequired,
+                fontsize: PropTypes.number,
+            };
 
             return (
                 <div>
-                    <MemorizedBtn text={text} onClick={onClick}/>
+                    <MemorizedBtn text={text} fontSize={16} onClick={onClick}/>
                     <MemorizedBtn text="close" />
                 </div>                
             );
