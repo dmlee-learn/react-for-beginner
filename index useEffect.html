@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>converter</title>
+    <base href="/" />
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.querySelector('#root');
+
+        //tag는 대문자로 선언 필요
+        
+        //function Btn(props) {
+        function Btn({text, fontSize = 12,onClick}) {
+            console.log(text, "was render");
+            return (
+                <button 
+                    onClick={onClick}
+                    style={{
+                    backgroundColor:'tomato'
+                    , color:'white'
+                    , padding:'10xp 20xp'
+                    , borderRadius:10
+                    , border:0
+                    , fontSize
+                
+                }}>{text}</button>
+            );
+        }
+        const MemorizedBtn = React.memo(Btn); //메모라이즈는 함수 밖에서 작업 필요
+        function App() {
+            const [counter, setCount] = useState(0);
+            const [keyword, setKeyword] = useState('');
+            console.log("run");
+            const onClick = () => setCount((prev) => prev+1);
+            const onChange = (event) => setKeyword(event.target.value);
+            useEffect(
+                () => {console.log('useEffect')}
+                , []
+            );
+            useEffect(
+                
+                () => {
+                    if("" !== keyword && keyword.length > 2) {
+                    console.log('keyword :',  keyword)
+                    }
+                }
+                , [keyword]
+            );
+            return (
+                <div className="App">
+                <input onChange={onChange} type="text" />
+                <h1>{counter}</h1>
+                <button onClick={onClick}>onClick</button>
+                </div>
+            );
+        }
+        ReactDOM.createRoot(root).render(<App />);
+    </script>
+</html>
