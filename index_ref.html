@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>converter</title>
+    <base href="/" />
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        //import {useState, useEffect, useRef} from "react";
+        const root = document.querySelector('#root');
+
+        function TextInputWithFocusButton() {
+            const inputEl = React.useRef(null);
+            const onButtonClick = () => {
+                // `current` points to the mounted text input element
+                inputEl.current.focus();
+                console.log(inputEl);
+                for (variable in inputEl.curren) {
+                    console.log(variable);
+                }
+            };
+
+            return (
+                <>
+                <input ref={inputEl} type="text" onClick={onButtonClick} />
+                <button onClick={onButtonClick}>Focus the input</button>
+                </>
+            );
+        }
+        ReactDOM.createRoot(root).render(<TextInputWithFocusButton />);
+    </script>
+</html>
